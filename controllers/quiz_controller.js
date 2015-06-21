@@ -11,3 +11,8 @@ exports.answer = function (req,res){
 		res.render('quizes/answer',{respuesta: 'Incorrecto', nombre_href: 'Intentalo otra vez'});
 	}
 };
+
+//GET /author
+exports.author = function(req,res){
+	res.render('author', {autor: 'Leire González Hocasar'});
+};
