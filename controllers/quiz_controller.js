@@ -28,7 +28,15 @@ exports.answer = function (req,res){
 
 //GET /quizes/index
 exports.index = function (req,res){
-  models.Quiz.findAll().then(
+  var busqueda = '%';
+  if (req.query.search){
+	var arrayPalabras = req.query.search.split(" ");
+	for (var i = 0; i< arrayPalabras.length; i++){
+	  busqueda += '%' + arrayPalabras[i];
+	}
+	busqueda += '%';
+  }
+  models.Quiz.findAll({where:["pregunta like ?", busqueda]}).then(
 	function(quizes){
   	  res.render('quizes/index.ejs',{quizes:quizes});
     	}

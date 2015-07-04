@@ -1,7 +1,17 @@
+<form method="get" action="/quizes">
+  Búsqueda de preguntas:  <p>
+  <input type="text" name="search" value=""/>
+  <input type="submit" value="Enviar"/>
+</form>
 <div align = "center">
   <table>
-     <% var i; for (i=0; i< quizes.length; i++){ %>
-        <tr><td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td></tr>
+    
+     <%   var i; for (i=0; i< quizes.length; i++){ %>
+             <tr><td><a href="quizes/<%= quizes[i].id %>">
+		<%= quizes[i].pregunta %></a></td></tr>
+     <% } %>
+     <% if (quizes.length === 0){ %>
+        <tr><td>No se ha encontrado ninguna coincidencia</td></tr>	
      <% } %>
   </table>
 </div>
