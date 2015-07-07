@@ -41,9 +41,7 @@ exports.index = function (req,res){
 	function(quizes){
   	  res.render('quizes/index.ejs',{quizes:quizes, errors: []});
     	}
-  ).catch(function(error) { 
-	console.log("el error" + error);
-	next(error);})
+  ).catch(function(error) {next(error);})
 };
 
 //GET /author
@@ -54,7 +52,7 @@ exports.author = function(req,res){
 //GET /quizes/new
 exports.new = function(req,res){
   var quiz = models.Quiz.build(
-	{pregunta: "Pregunta", respuesta: "Respuesta", tema: "otro"}
+	{pregunta: "", respuesta: "", tema: "otro"}
   );
   res.render('quizes/new', {quiz: quiz, errors: []});
 };
@@ -64,8 +62,9 @@ exports.create = function(req, res){
   var quiz = models.Quiz.build(req.body.quiz);
   quiz.validate().then( function(err){
   if (err) {
-	res.render('quizes/new', {quiz: quiz, errors: errores});
+	res.render('quizes/new', {quiz: quiz, errors: err.errors});
   }else{
+	console.log('parece que bien');
 	  quiz
 	   .save({fields: ["pregunta", "respuesta", "tema"]})
 	   .then(function(){
