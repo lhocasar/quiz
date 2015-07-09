@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var partials = require('express-partials');
 var methodOverride = require('method-override');
 var session = require('express-session');
+var autoLogOut = require('./autoLogOut');
 
 var routes = require('./routes/index');
 
@@ -37,6 +38,26 @@ app.use(function(req, res, next){
   //Hacer visible req.session en las vistas
   res.locals.session = req.session;
   next();
+});
+
+
+app.use(function(req, res, next){
+  
+  if(req.session.user){
+	
+    if (autoLogOut.finLogin(req.session.contadorLogOut)){
+	delete req.session.user;
+        req.session.contadorLogOut = undefined;
+    }else{
+        console.log('cerramos sesion por tiempo excedido');
+        req.session.contadorLogOut = new Date().getTime();
+    }
+  } else {
+	req.session.contadorLogOut = undefined;
+  }
+
+  next();
+
 });
 
 app.use('/', routes);

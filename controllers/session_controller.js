@@ -28,7 +28,7 @@ exports.create = function(req, res) {
 	  return;
 	}
 
-	req.session.user = {id: user.id, username: user.username};
+	req.session.user = {id: user.id, username: user.username, contadorLogOut: undefined};
 	res.redirect(req.session.redir.toString());
   });
 };
@@ -36,5 +36,6 @@ exports.create = function(req, res) {
 //DELETE /logout
 exports.destroy = function(req, res){
   delete req.session.user;
+  req.session.contadorLogOut = undefined;
   res.redirect(req.session.redir.toString());
 };
