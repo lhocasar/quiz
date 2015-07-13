@@ -6,11 +6,20 @@ module.exports = function(sequelize, DataTypes) {
    {texto: {
 	type: DataTypes.STRING,
 	validate: { notEmpty: {msg: "-> Falta Comentario"}}
-    },
+    	},
     publicado:{
 	type: DataTypes.BOOLEAN,
 	defaultValue: false
-    }
+    	}
+    },
+    {
+	classMethods: {
+	   numComments: function(){
+		 return this.findAndCountAll().then(
+		  function(comments){
+			return comments.count;});
+	   }
+	}
     }
   );
 }

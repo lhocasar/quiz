@@ -1,0 +1,7 @@
+ <h3>Página de estadísticas</h3>
+<br>
+      <p>Número de preguntas: <b><%= numQuizes %></b></p>
+      <p>Número de cometarios: <b><%= numComments %></b></p>
+      <p>Número medio de cometarios por pregunta: <b><%= numQuizes?(numComments / numQuizes).toFixed(2):0  %></b></p>
+      <p>Número de preguntas sin cometarios: <b><%= numQuizesNoComments %></b></p>
+      <p>Número de preguntas con cometarios: <b><%= numQuizesComments %></b></p>

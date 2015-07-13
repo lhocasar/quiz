@@ -1,7 +1,9 @@
+<br>
 <label for="preg" class="rem">Pregunta:</label>
 <input type="text" id="preg" name="quiz[pregunta]" value="<%= quiz.pregunta %>" placeholder="Pregunta"/> <p>
 <label for="resp" class="rem">Respuesta:</label>
 <input type="text" id="resp" name="quiz[respuesta]" value="<%= quiz.respuesta %>" placeholder="Respuesta"/> <p>
+<br>
 <label for="tem" class="rem">Índice temático:</label>
  <select id="tem" name="quiz[tema]">
    <option value="otro" 
@@ -14,6 +16,9 @@
 	<% if (quiz.tema === 'ciencia') {%> selected <%}%> >Ciencia</option>
    <option value="tecnologia"
 	<% if (quiz.tema === 'tecnologia') {%> selected <%}%> >Tecnología</option>
-</select> <p>
+</select> 
+<br>
+<br>
 <a href="/quizes"><button type="button" style="font-size:16px">Cancelar</button></a>
 <input type="submit" value="Salvar" style="font-size:16px">
+

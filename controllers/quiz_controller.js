@@ -24,7 +24,7 @@ exports.show = function (req,res){
 exports.answer = function (req,res){  
   var resultado = 'Incorrecto';
   if (req.query.respuesta === req.quiz.respuesta){
-	resultado= 'Correcto';
+	resultado= '¡Correcto!';
   }		
   res.render('quizes/answer',{quiz: req.quiz, respuesta: resultado, errors: []});
 };
@@ -50,6 +50,42 @@ exports.index = function (req,res){
 //GET /author
 exports.author = function(req,res){
 	res.render('author', {autor: 'Leire González Hocasar', errors: []});
+};
+
+//GET /statistics
+exports.statistics = function(req,res){
+  var stadist ={
+    _numQuizes: 0,
+    _numComments: 0,
+    _numQuizesNoComments: 0,
+    _numQuizesComments: 0}
+
+
+ models.Quiz.numQuizes()
+  .then(function(nQuizes){
+	  stadist._numQuizes = nQuizes;
+	  return  models.Quiz.numQuizesNoComments();
+        })
+  .then(function(nQuizesNoComm){
+	stadist._numQuizesNoComments = nQuizesNoComm;
+        return models.Quiz.numQuizesComments();
+        })
+   .then(function(nQuizesComm){
+	stadist._numQuizesComments = nQuizesComm; 
+        return models.Comment.numComments();
+       })
+   .then(function(nComments){
+	stadist._numComments = nComments; 
+       })
+  .catch(function(error) {next(error);})
+  .finally(function(){
+
+     res.render('statistics', {numQuizes: stadist._numQuizes,
+	    numComments: stadist._numComments,
+	    numQuizesNoComments: stadist._numQuizesNoComments,
+	    numQuizesComments: stadist._numQuizesComments,
+	    errors: []});
+  });
 };
 
 //GET /quizes/new

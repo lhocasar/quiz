@@ -1,30 +1,21 @@
 <form method="get" action="/quizes">
   Búsqueda de preguntas:  <p>
   <input type="text" name="search" value=""/>
-  <input type="submit" value="Buscar"/>
+  <input type="submit" value="" class="btnSeek"/>
 </form>
 <div align = "center">
   <table>
-     <tr> 
-	    <td><u> <strong>Pregunta</strong></u></td>
-	    <td><u> <strong>Tema</strong></u></td>
-	<%if(session.user){%>
-	    <td><u> <strong>Editar</strong></u></td>
-	    <td><u> <strong>Borrar</strong></u></td>
-	<%}%>
-     </tr>
      <%   var i; for (i=0; i< quizes.length; i++){ %>
-         
          <tr>
-	    <td><a href="quizes/<%= quizes[i].id %>">
+	    <td colspan="3"><a href="quizes/<%= quizes[i].id %>">
 		<%= quizes[i].pregunta %></a></td>
 	    <td><%= quizes[i].tema %></td>
 	  <%if(session.user){%>
 	    <td><a href="quizes/<%= quizes[i].id %>/edit">
-		<button>editar</button></a></td>
-	    <td>
-		<form method="post" action="quizes/<%= quizes[i].id %>?_method=delete">
-		 <button type:"submit" onClick="return confirm('Borrar: <%= quizes[i].pregunta %>');">borrar</button>
+		<button class="btnEdit"></button></a>
+	   
+	    <form method="post" action="quizes/<%= quizes[i].id %>?_method=delete">
+		 <button type:"submit" onClick="return confirm('Borrar: <%= quizes[i].pregunta %>');" class="btnDel"></button>
 		</form>
 	    </td>
 	  <%}%>
@@ -33,9 +24,11 @@
      <% if (quizes.length === 0){ %>
         <tr><td>No se ha encontrado ninguna coincidencia</td></tr>	
      <% } %>
-  </table>
-</div>
-<p/>
+<tr><td></td><td></td><td></td><td></td><td></td></tr>
+</table>
 <%if(session.user){%>
-	<a href="/quizes/new"><button type="button">Crear pregunta</button></a>
+   <a href="/quizes/new"><button type="button">Crear pregunta</button></a>
 <%}%>
+</div>
+
+

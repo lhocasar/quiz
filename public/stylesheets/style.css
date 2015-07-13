@@ -6,6 +6,30 @@ body 		{ font: 16px Georgia, serif;}
 		  	  margin-bottom: 1px; color: black;}
 .right	{float: right; }
 
+.btnSeek{background-image:url(../images/seek.jpg);
+	 background-repeat:no-repeat;
+	 background-size: 70% 70%;
+         height:30px;
+         width:30px;
+	 background-position:center;}
+
+.btnDel {background-image:url(../images/trash.jpeg);
+	 background-repeat:no-repeat;
+	 background-size: 100% 100%;
+         height:30px;
+         width:30px;
+	 background-position:center;
+	 float: right;}
+
+.btnEdit {background-image:url(../images/edit.png);
+	 background-repeat:no-repeat;
+         background-size: 70% 70%;
+         height:30px;
+         width:30px;
+	 background-position:center;
+	 margin: 0 0 0 0.5em;
+         float: right;}
+
 section > div	{ padding: 20px;}
 header, nav, section,footer	{background: #eee; text-align: center;}
 nav span	{ margin: 0px 10px 0px 0px;}
