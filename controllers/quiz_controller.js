@@ -54,12 +54,32 @@ exports.author = function(req,res){
 
 //GET /statistics
 exports.statistics = function(req,res){
-  var stadist ={
-    _numQuizes: 0,
-    _numComments: 0,
-    _numQuizesNoComments: 0,
-    _numQuizesComments: 0}
+  models.Quiz.findAll({include: [{model: models.Comment}]}).then(
+	function(quizes){
+	 var stadist ={
+    	   _numQuizes: 0,
+   	   _numComments: 0,
+    	   _numQuizesNoComments: 0,
+    	   _numQuizesComments: 0};
 
+	 stadist._numQuizes = quizes.length;
+
+         for (var i =0; i<quizes.length; i++){
+		var len=quizes[i].Comments.length;
+		stadist._numQuizesComments += (len > 0);
+		stadist._numComments += len;
+	 };
+	
+	 stadist._numQuizesNoComments = stadist._numQuizes - stadist._numQuizesComments;
+
+     	 res.render('statistics', {numQuizes: stadist._numQuizes,
+	    numComments: stadist._numComments,
+	    numQuizesNoComments: stadist._numQuizesNoComments,
+	    numQuizesComments: stadist._numQuizesComments,
+	    errors: []});
+
+  });
+/*  
 
  models.Quiz.numQuizes()
   .then(function(nQuizes){
@@ -85,7 +105,7 @@ exports.statistics = function(req,res){
 	    numQuizesNoComments: stadist._numQuizesNoComments,
 	    numQuizesComments: stadist._numQuizesComments,
 	    errors: []});
-  });
+  });*/
 };
 
 //GET /quizes/new
